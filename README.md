@@ -6,6 +6,7 @@
 ### Table of Contents
 * [Installation](#installation)
 * [Usage](#usage)
+* [Examples](#examples)
 * [License](#license)
 
 ### Installation
@@ -25,7 +26,20 @@ $ python setup.py install
 ```
 
 ### Usage
-To launch the Graphical User Interface, launch as follows:
+spockpy creates a virtual trackpad (we call this, a *HoverPad*) for your user to interact with the API. Create a `spockpy.HoverPad` object as follows:
+```python
+>>> import spockpy
+>>> pad = spockpy.HoverPad()
+```
+
+To display the `HoverPad`, use the `show` class method as follows:
+```python
+>>> pad.show()
+```
+
+### Examples
+spockpy comes with a handy number of examples.
+To launch the app, launch it as follows:
 ```python
 >>> import spockpy
 >>> app = spockpy.App()
