@@ -63,8 +63,8 @@ class HoverPad(object):
 		self.deviceID = deviceID
 		self.capture  = Capture(deviceID = self.deviceID)
 		self.position = position
-		self.verbose  = verbose
 		self.event    = Event(Event.NONE)
+		self.verbose  = verbose
 
 		self.roi      = _get_roi(size = self.size, position = position)
 

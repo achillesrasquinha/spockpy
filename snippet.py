@@ -2,6 +2,9 @@ import spockpy
 import cv2
 
 pad = spockpy.HoverPad(size = (640, 480), position = 'tl', verbose = True)
+
+pad = spockpy.HoverPad(position = 'tr', size = (800, 600), verbose = True)
+
 pad.show()
 
 while True:
