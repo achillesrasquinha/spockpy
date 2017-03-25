@@ -26,7 +26,7 @@ class HoverPad(object):
 
 			self.super.__init__(master)
 
-			self.creatUI()
+			self.createUI()
 
 		def createUI(self):
 			currentRow    = 0
