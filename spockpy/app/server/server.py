@@ -20,11 +20,11 @@ HOVERPAD_SIZE      = (640, 480)
 HOVERPAD_DEVICE_ID = 0
 HOVERPAD_VERBOSE   = True
 
-app = Flask(__name__,
+app   = Flask(__name__,
 	static_folder   = ServerConfig.Path.ABSPATH_ASSETS,
 	template_folder = ServerConfig.Path.ABSPATH_TEMPLATES
 )
-pad = HoverPad(deviceID = HOVERPAD_DEVICE_ID, size = HOVERPAD_SIZE, verbose = HOVERPAD_VERBOSE)
+pad   = HoverPad(deviceID = HOVERPAD_DEVICE_ID, size = HOVERPAD_SIZE, verbose = HOVERPAD_VERBOSE)
 pad.show()
 
 def _get_gesture_name(event):
@@ -36,8 +36,8 @@ def _get_gesture_name(event):
 		return 'scissor'
 	if event.type == Event.PAPER:
 		return 'paper'
-	if event.type == Event.NONE:
-		return 'none'
+	if event.type == Event.SPOCK:
+		return 'spock'
 
 @app.route(ServerConfig.URL.BASE)
 def index():
@@ -59,15 +59,7 @@ def videostream():
 
 @app.route(ServerConfig.URL.DETECT, methods = ['POST'])
 def detect():
-	# data     = request.json
-	# print(data)
-	data     = request.values['image']
-	image    = _base64_str_to_image(data)
-
-	array    = np.asarray(image)
-
-	event    = spockpy.detect(array)
-
+	event    = pad.get_event()
 	gesture  = _get_gesture_name(event)
 
 	response = { 'type': gesture }

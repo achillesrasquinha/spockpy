@@ -13,11 +13,11 @@
 				<div class="panel-body">
 					<div class="well well-sm">
 						<div class="text-center">
-							<h2 class="font-bold">0</h2>
+							<h2 class="font-bold computer-score">0</h2>
 						</div>
 					</div>
 					<div class="text-center">
-						<img class="image-responsive img-thumbnail no-border"
+						<img class="image-responsive image-computer img-thumbnail no-border"
 							src="{{ url_for('static', filename = 'img/icons/spock.png') }}"
 							width="250"/>
 					</div>
@@ -42,7 +42,7 @@
 				<div class="panel-body">
 					<div class="well well-sm">
 						<div class="text-center">
-							<h2 class="font-bold">0</h2>
+							<h2 class="font-bold player-score">0</h2>
 						</div>
 					</div>
 					<div class="text-center">
@@ -60,7 +60,12 @@
   src="https://code.jquery.com/jquery-1.12.4.min.js"
   integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
   crossorigin="anonymous"></script>
+<script src="https://unpkg.com/notie"></script>
 <script>
+var images = [
+	'rock', 'paper', 'scissor', 'lizard', 'spock'
+]
+
 function startCounter(counter, callback) {
 	$('.counter').html(counter);
 	console.log($('.counter').html());
@@ -72,39 +77,84 @@ function startCounter(counter, callback) {
 			counter = counter - 1;
 			startCounter(counter, callback)
 		}, 1000);
+
+		
 	}
 }
 
-function getBase64ImageString(image) {
-  var canvas = document.createElement("canvas");
-  canvas.width = image.width;
-  canvas.height = image.height;
-  var ctx = canvas.getContext("2d");
-  ctx.drawImage(image, 0, 0);
-  var dataURL = canvas.toDataURL("image/png");
-  return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+var computerScore = 0
+var playerScore = 0
+
+var lookup = {
+	"rock-rock": "tie",
+	"rock-paper": "lose",
+	"rock-scissor": "win",
+	"rock-lizard": "win",
+	"rock-spock": "lose",
+	"paper-rock": "win",
+	"paper-paper": "tie",
+	"paper-scissor": "lose",
+	"paper-lizard": "lose",
+	"paper-spock": "win",
+	"scissor-rock": "lose",
+	"scissor-paper": "win",
+	"scissor-scissor": "tie",
+	"scissor-lizard": "win",
+	"scissor-spock": "lose",
+	"lizard-rock": "lose",
+	"lizard-paper": "win",
+	"lizard-scissor": "lose",
+	"lizard-lizard": "tie",
+	"lizard-spock": "win",
+	"spock-rock": "win",
+	"spock-paper": "lose",
+	"spock-scissor": "win",
+	"spock-lizard": "lose",
+	"spock-spock": "tie"
 }
 
 $(document).ready(function() {
 	$('.play').click(function () {
-		console.log('play clicked');
 		var counter = 3;
 
 		startCounter(counter, function () {
-			console.log('counter done');
+			$.post('/detect', function (response) {
+				response = JSON.parse(response)
+				gesture  = response.type
+				var rand = images[Math.floor(Math.random() * images.length)];
+				$('.image-computer').attr('src', '/assets/img/icons/' + rand + '.png');
+				console.log(rand + "-" + gesture)
+				var result = lookup[rand + "-" + gesture]
 
-			var imageString = getBase64ImageString($('.videostream')[0]);
-			$.post('/detect', { image: imageString }, function (response) {
-				console.log(response);
+				console.log(result);
+				
+				if (result == "win") {
+					notie.alert({ text: 'Sorry, you lose.', type: 3 })
+					computerScore = computerScore + 1;
+					$('.computer-score').html(computerScore);
+				}
+				else if (result == "tie") {
+					notie.alert({ text: "Whoops! It's a tie.", type: 4 })
+				}
+				else if (result == "lose") {
+					notie.alert({ text: 'Hurray! You have won.', type: 1 });
+					playerScore = playerScore + 1;
+					$('.player-score').html(playerScore);
+				}
+
+				setTimeout(function ( ) {
+
+					$('.play').click();
+				}, 2000);
+
 			});
 		});
 	});
 
-	setTimeout(function ( ) {
-		var imageString = getBase64ImageString($('.videostream')[0]);
-		$.post('/detect', { image: imageString }, function (response) {
-			gesture = response.gesture
-			console.log(gesture)
+	setInterval(function ( ) {
+		$.post('/detect', function (response) {
+			response = JSON.parse(response)
+			gesture  = response.type
 			$('.gesture-text').html(gesture)
 		});
 	}, 100);
