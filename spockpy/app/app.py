@@ -23,6 +23,7 @@ class App(object):
 
 		def createUI(self):
 			width, height = AppConfig.WINDOW_SIZE
+			currentRow    = 0
 
 			size          = AppConfig.VIDEO_PANEL_SIZE
 			self.video    = tk.Label(self.master,
