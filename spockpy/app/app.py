@@ -8,6 +8,7 @@ except ImportError:
 from PIL import Image, ImageTk
 
 # imports - module imports
+import spockpy
 from spockpy.config import AppConfig
 
 class App(object):
@@ -51,7 +52,7 @@ class App(object):
 			windowSize   = self.windowSize
 		)
 
-		self.capture     = Capture()
+		self.capture     = spockpy.Capture()
 		self.thread      = threading.Thread(target = self.videoloop)
 
 	def run(self):
