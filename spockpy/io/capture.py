@@ -9,18 +9,26 @@ class Capture(object):
 	'''
 	Capture object
 
-	:param device: device ID of your capture device, defaults to 0
-	:type device: :obj:`int`
+	:param deviceID: device ID of your capture device, defaults to 0
+	:type deviceID: :obj:`int`
 
 	Example
 
 	>>> import spockpy
 	>>> cap = spockpy.Capture()
 	'''
-	def __init__(self, device = 0):
-		self.deviceID = device
+	def __init__(self, deviceID = 0):
+		self.deviceID = deviceID
 		self.capture  = cv2.VideoCapture(self.deviceID)
 
+	'''
+	Reads the current input stream from a capture device and returns a `PIL.Image` object
+
+	>>> import spockpy
+	>>> cap   = spockpy.Capture()
+	>>> image = cap.read()
+	>>> image.show()
+	'''
 	def read(self):
 		_, frame = self.capture.read()
 		image    = Image.fromarray(frame)

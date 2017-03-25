@@ -10,9 +10,12 @@ import cv2
 from PIL import Image
 
 # imports - module imports
-from spockpy import Capture, Event
-from spockpy._util import _resize_image, _round_int
+from spockpy.io    import Capture
+from spockpy.event import Event
+from spockpy._util import _resize_image, _round_int, _mount_roi
 from spockpy.event import keycode
+
+import spockpy
 
 def _get_roi(size, ratio = 0.42, position = 'tr'):
 	width, height = _round_int(size[0] * ratio), _round_int(size[1] * ratio)
@@ -32,6 +35,7 @@ def _crop_array(array, roi):
 	x, y, w, h = roi
 	crop       = array[ y : y + h , x : x + w ]
 
+	return crop
 
 class HoverPad(object):
 	'''
@@ -52,24 +56,19 @@ class HoverPad(object):
 	>>> import spockpy
 	>>> pad = spockpy.HoverPad(size = (480, 320))
 	'''
-	TITLE = 'spockpy.HoverPad'
+	TITLE = 'HoverPad | spockpy'
 
-	def __init__(self, size = (320, 240), deviceID = 0, position = 'tr'):
+	def __init__(self, size = (320, 240), deviceID = 0, position = 'tr', verbose = False):
 		self.size     = size
-		self.capture  = Capture()
+		self.deviceID = deviceID
+		self.capture  = Capture(deviceID = self.deviceID)
 		self.position = position
-		# self.event    = Event(Event.NONE)
+		self.verbose  = verbose
+		self.event    = Event(Event.NONE)
 
 		self.roi      = _get_roi(size = self.size, position = position)
 
 		self.thread   = threading.Thread(target = self._showloop)
-
-	def _mount_roi(self, array, color = (74, 20, 140), thickness = 2):
-		x, y, w, h    = self.roi
-
-		cv2.rectangle(array, (x, y), (x + w, y + h), color, thickness)
-
-		return array
 
 	'''
 	Displays the HoverPad object instance onto the screen. To close the HoverPad, simply press the ESC key
@@ -88,16 +87,16 @@ class HoverPad(object):
 			image = self.capture.read()
 			image = image.transpose(Image.FLIP_LEFT_RIGHT)
 
-			image = _resize_image(image, self.size, maintain_aspect_ratio = True)
+			image = _resize_image(image, self.size)
 			
 			array = np.asarray(image)
-			array = self._mount_roi(array)
+			array = _mount_roi(array, self.roi, color = (74, 20, 140), thickness = 2)
 
 			crop  = _crop_array(array, self.roi)
 
 			# process image for any gestures
-			# event      = spockpy.detect(crop)
-			# self.event = event
+			event      = spockpy.detect(crop, verbose = self.verbose)
+			self.event = event
 
 			cv2.imshow(HoverPad.TITLE, array)
 

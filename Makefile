@@ -1,3 +1,5 @@
+.PHONY: docs
+
 PYTHON = python
 
 install:
@@ -9,8 +11,14 @@ install:
 run:
 	$(PYTHON) -m spockpy
 
+docs:
+	cd docs && make html
+
+tests:
+	$(PYTHON) setup.py test
+
 clean:
 	$(PYTHON) setup.py clean
 
 all:
-	make install run clean
+	make install docs test clean
