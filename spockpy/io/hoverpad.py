@@ -1,6 +1,9 @@
 # imports - compatibility imports
 from __future__ import absolute_import
 
+# imports - standard imports
+import threading
+
 # imports - third-party imports
 import numpy as np
 import cv2
@@ -28,7 +31,7 @@ def _get_roi(size, ratio = 0.42, position = 'tr'):
 	elif position == 'br':
 		x, y = size[0] - width, size[1] - height
 
-	return (x, y, w, h)
+	return (x, y, width, height)
 
 class HoverPad(object):
 	'''
@@ -58,7 +61,9 @@ class HoverPad(object):
 
 		self.roi      = _get_roi(size = self.size, position = position)
 
-	def _mount_roi(self, array, color = (74, 20, 140), thickness = 3):
+		self.thread   = threading.Thread(target = self._showloop)
+
+	def _mount_roi(self, array, color = (74, 20, 140), thickness = 2):
 		x, y, w, h    = self.roi
 
 		cv2.rectangle(array, (x, y), (x + w, y + h), color, thickness)
@@ -75,6 +80,9 @@ class HoverPad(object):
 	>>> pad.show()
 	'''
 	def show(self):
+		self.thead.start()
+		
+	def _showloop(self):
 		while cv2.waitKey(10) not in [keycode.ESCAPE, keycode.Q, keycode.q]:
 			image = self.capture.read()
 			image = image.transpose(Image.FLIP_LEFT_RIGHT)
