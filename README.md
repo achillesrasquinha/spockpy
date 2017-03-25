@@ -33,7 +33,7 @@ To launch the Graphical User Interface, launch as follows:
 ```
 OR via the command-line
 ```console
->>> python -m spockpy
+$ python -m spockpy
 ```
 
 ### License
