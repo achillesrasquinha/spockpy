@@ -1,69 +1,40 @@
 # imports - compatibility imports
 from __future__ import absolute_import
 
-# imports - standard imports
-try:
-	import Tkinter as tk
-except ImportError:
-	import tkinter as tk
-import threading
-
 # imports - third-party imports
-from PIL import Image, ImageTk
+import numpy as np
+import cv2
 
 # imports - module imports
+from spockpy.io    import Capture
 from spockpy._util import _resize_image
-from spockpy.config import BaseConfig
-from spockpy.io import Capture
+from spockpy.event import keycode
 
 class HoverPad(object):
-	TITLE = 'HoverPad'
+	'''
+	HoverPad object
 
-	class Frame(tk.Frame):
-		def __init__(self, master = None, size = BaseConfig.HOVERPAD_SIZE):
-			self.master  = master
-			self.size    = size
+	:param size: the size of the HoverPad instance containing the width and height in pixels, defaults to 320x240
+	:type size: :obj:`tuple`
 
-			tk.Frame.__init__(self, self.master)
+	:param deviceID: the device ID of your capture device, defaults to 0.
+	:type deviceID: :obj:`int`
+	'''
+	TITLE = 'spockpy.HoverPad'
 
-			self.createUI()
+	def __init__(self, size = (320, 240), deviceID = 0):
+		self.size    = size
+		self.capture = Capture()
 
-		def createUI(self):
-			currentRow    = 0
-
-			width, height = self.size
-			self.video    = tk.Label(self.master,
-								     width  = width,
-								     height = height)
-			self.video.grid(row = currentRow, column = 0, sticky = tk.E + tk.W + tk.N + tk.S)
-
-	def __init__(self,
-				 size = BaseConfig.HOVERPAD_SIZE):
-		self.size     = size
-
-		self.root     = tk.Tk()
-		self.root.title(HoverPad.TITLE)
-
-		width, height = self.size
-		self.root.geometry('{width}x{height}'.format(
-			width  = width,
-			height = height
-		))
-
-		self.frame    = HoverPad.Frame(master = self.root)
-
-		self.thread   = threading.Thread(target = self._captureloop)
-		self.capture  = Capture()
-
-	def _captureloop(self):
-		while True:
-			image   = self.capture.read()
-			image   = _resize_image(image, self.size, ratio = True)
-			image   = image.convert('L')
-			imagetk = ImageTk.PhotoImage(image)
-
-			self.frame.video.configure(image = imagetk)
-
+	'''
+	Displays the HoverPad object instance onto the screen. To close the HoverPad, simply press the ESC key
+	'''
 	def show(self):
-		self.thread.start()
-		self.root.mainloop()
+		while cv2.waitKey(0) not in [keycode.ESCAPE, keycode.Q, keycode.q]:
+			image = self.capture.read()
+			image = _resize_image(image, self.size, maintain_aspect_ratio = True)
+			array = np.asarray(image)
+
+			cv2.imshow(HoverPad.TITLE, array)
+
+		cv2.destroyWindow(HoverPad.TITLE)

@@ -1,9 +1,9 @@
 from PIL import Image
 
-def _resize_image(image, size, ratio = False):
+def _resize_image(image, size, maintain_aspect_ratio = False):
     width, height = image.size
 
-    if ratio:
+    if maintain_aspect_ratio:
         aspect_ratio = width / height
 
         if min(width, height) is width:

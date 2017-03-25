@@ -5,14 +5,9 @@ from __future__ import absolute_import
 import cv2
 from PIL import Image
 
-# imports - module imports
-from spockpy.config import BaseConfig
-
 class Capture(object):
-	def __init__(self, device = BaseConfig.DEFAULT_CAPTURE_DEVICE_ID, *args, **kwargs):
-		self.super    = super(Capture, self)
+	def __init__(self, device = 0):
 		self.deviceID = device
-
 		self.capture  = cv2.VideoCapture(self.deviceID)
 
 	def read(self):
