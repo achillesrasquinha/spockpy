@@ -4,6 +4,7 @@ from __future__ import absolute_import
 # imports - third-party imports
 import numpy as np
 import cv2
+from PIL import Image
 
 # imports - module imports
 from spockpy.io    import Capture
@@ -21,13 +22,13 @@ def _get_roi(size, ratio = 0.42, position = 'tr'):
 	if   position == 'tl':
 		x, y = 0, 0
 	elif position == 'tr':
-		x, y = size[0] - width, size[1]
+		x, y = size[0] - width, 0
 	elif position == 'bl':
 		x, y = 0, size[1] - height
 	elif position == 'br':
 		x, y = size[0] - width, size[1] - height
 
-	return (int(x), int(y), int(width), int(height))
+	return (x, y, w, h)
 
 class HoverPad(object):
 	'''
@@ -40,6 +41,8 @@ class HoverPad(object):
 
 	:param deviceID: the device ID of your capture device, defaults to 0.
 	:type deviceID: :obj:`int`
+
+	:param 
 
 	Example
 
@@ -55,10 +58,10 @@ class HoverPad(object):
 
 		self.roi      = _get_roi(size = self.size, position = position)
 
-	def _mount_roi(self, image, color = (74, 20, 140), thickness = 1):
+	def _mount_roi(self, array, color = (74, 20, 140), thickness = 3):
 		x, y, w, h    = self.roi
 
-		cv2.rectangle(image, (x, y), (x + w, y + h), thickness)
+		cv2.rectangle(array, (x, y), (x + w, y + h), color, thickness)
 
 		return array
 
