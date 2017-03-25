@@ -74,8 +74,8 @@ def detect(array, verbose = False):
     blur       = cv2.GaussianBlur(gray, ksize = _DEFAULT_GAUSSIAN_BLUR_KERNEL, sigmaX = 0)
     _, thresh  = cv2.threshold(blur, 127, 255, _DEFAULT_THRESHOLD_TYPE)
 
-    if verbose:
-        cv2.imshow('spockpy.HoverPad.roi.threshold', thresh)
+    # if verbose:
+    #     cv2.imshow('spockpy.HoverPad.roi.threshold', thresh)
 
     contours   = _get_contours(thresh.copy())
     largecont  = max(contours, key = lambda contour: cv2.contourArea(contour))
@@ -108,7 +108,10 @@ def detect(array, verbose = False):
         elif ndefects == 4:
             event.setType(Event.PAPER)
 
-    if verbose:
-        cv2.imshow('spockpy.HoverPad.roi', copy)
+    # if verbose:
+    #     cv2.imshow('spockpy.HoverPad.roi', copy)
 
-    return event
+    if verbose:
+        return copy, event
+    else:
+        return event

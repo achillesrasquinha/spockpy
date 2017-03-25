@@ -1,5 +1,9 @@
 # imports - standard imports
 import os
+try:
+	from urlparse import urljoin
+except ImportError:
+	from urllib.parse import urljoin
 
 class BaseConfig(object):
 	class Path(object):
@@ -8,4 +12,5 @@ class BaseConfig(object):
 		ABSPATH_ASSETS = os.path.join(ABSPATH_ROOT, 'assets') 
 
 	class URL(object):
-		BASE = '/'
+		BASE       = '/'
+		VIDEO_STREAM = urljoin(BASE, 'videostream')

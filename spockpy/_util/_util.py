@@ -1,3 +1,6 @@
+# imports - standard imports
+import io
+
 # imports - third-party imports
 import numpy as np
 from PIL import Image
@@ -34,3 +37,9 @@ def _mount_roi(array, roi, color = (0, 255, 0), thickness = 1):
     cv2.rectangle(array, (x, y), (x + w, y + h), color = color, thickness = thickness)
 
     return array
+
+def _image_to_byte_array(image):
+    array  = np.asarray(image)
+    bytes_ = array.tobytes()
+
+    return bytes_

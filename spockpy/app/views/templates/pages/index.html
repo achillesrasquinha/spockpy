@@ -4,7 +4,25 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-5">
-			{% include 'includes/panel.html' %}
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<div class="panel-title text-center font-bold">
+						Player
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="well well-sm">
+						<div class="text-center">
+							<h2 class="font-bold">0</h2>
+						</div>
+					</div>
+					<div class="text-center">
+						<img class="image-responsive img-thumbnail no-border"
+							src="{{ url_for('static', filename = 'img/icons/spock.png') }}"
+							width="200"/>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div class="col-md-2">
 			<div class="panel panel-default no-border no-background no-shadow">
@@ -15,7 +33,25 @@
 			</div>
 		</div>
 		<div class="col-md-5">
-			{% include 'includes/panel.html' %}
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<div class="panel-title text-center font-bold">
+						Player
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="well well-sm">
+						<div class="text-center">
+							<h2 class="font-bold">0</h2>
+						</div>
+					</div>
+					<div class="text-center">
+						<img class="image-responsive img-thumbnail no-border"
+							src="{{ url_for('videostream') }}"
+							width="200"/>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

@@ -50,8 +50,6 @@ class HoverPad(object):
 	:param deviceID: the device ID of your capture device, defaults to 0.
 	:type deviceID: :obj:`int`
 
-	:param 
-
 	Example
 
 	>>> import spockpy
@@ -65,6 +63,8 @@ class HoverPad(object):
 		self.capture  = Capture(deviceID = self.deviceID)
 		self.position = position
 		self.event    = Event(Event.NONE)
+		self.image    = None
+
 		self.verbose  = verbose
 
 		self.roi      = _get_roi(size = self.size, position = position)
@@ -96,14 +96,19 @@ class HoverPad(object):
 			crop  = _crop_array(array, self.roi)
 
 			# process image for any gestures
-			event      = spockpy.detect(crop, verbose = self.verbose)
+			if self.verbose:
+				segments, event = spockpy.detect(crop, verbose = self.verbose)
+			else:
+				event           = spockpy.detect(crop, verbose = self.verbose)
+
+			self.image = Image.fromarray(segments)
 			self.event = event
 
 			cv2.imshow(HoverPad.TITLE, array)
 
 		cv2.destroyWindow(HoverPad.TITLE)
 
-	def get(self):
+	def get_event(self):
 		'''
 		Returns a `spockpy.Event` captured within the frame.
 
@@ -115,3 +120,6 @@ class HoverPad(object):
 		>>> event.type
 		'''
 		return self.event
+
+	def get_image(self):
+		return self.image
