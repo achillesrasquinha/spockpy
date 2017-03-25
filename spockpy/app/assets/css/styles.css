@@ -1,0 +1,15 @@
+.font-bold {
+  	font-weight: 700;
+}
+
+.no-border {
+	border: 0 !important;
+}
+
+.no-shadow {
+	box-shadow: none !important;
+}
+
+.no-background {
+	background: none !important;
+}

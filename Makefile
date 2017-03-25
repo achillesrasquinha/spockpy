@@ -15,10 +15,10 @@ docs:
 	cd docs && make html
 
 tests:
-	$(PYTHON) setup.py test
+	# $(PYTHON) setup.py tests
 
 clean:
 	$(PYTHON) setup.py clean
 
 all:
-	make install docs test clean
+	make install docs tests clean

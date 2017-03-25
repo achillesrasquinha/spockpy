@@ -1,9 +1,12 @@
 # imports - compatibility imports
 from __future__ import absolute_import
 
-# imports - module imports
-from spockpy import App
+# imports - app imports
+from spockpy.app import app
+from spockpy.app.config import ServerConfig
 
 if __name__ == '__main__':
-	app = App()
-	app.run()
+	host = ServerConfig.HOST
+	port = ServerConfig.PORT
+
+	app.run(host = host, port = port)

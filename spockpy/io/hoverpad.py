@@ -10,6 +10,7 @@ import cv2
 from PIL import Image
 
 # imports - module imports
+from spockpy       import Config
 from spockpy.io    import Capture
 from spockpy.event import Event
 from spockpy._util import _resize_image, _round_int, _mount_roi
@@ -17,7 +18,7 @@ from spockpy.event import keycode
 
 import spockpy
 
-def _get_roi(size, ratio = 0.42, position = 'tr'):
+def _get_roi(size, ratio = 0.42, position = 'tl'):
 	width, height = _round_int(size[0] * ratio), _round_int(size[1] * ratio)
 
 	if   position == 'tl':
@@ -58,7 +59,7 @@ class HoverPad(object):
 	'''
 	TITLE = 'HoverPad | spockpy'
 
-	def __init__(self, size = (320, 240), deviceID = 0, position = 'tr', verbose = False):
+	def __init__(self, size = Config.HOVERPAD_SIZE, deviceID = 0, position = 'tl', verbose = False):
 		self.size     = size
 		self.deviceID = deviceID
 		self.capture  = Capture(deviceID = self.deviceID)

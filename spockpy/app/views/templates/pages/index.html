@@ -1,0 +1,22 @@
+{% extends 'layouts/default.html' %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-5">
+			{% include 'includes/panel.html' %}
+		</div>
+		<div class="col-md-2">
+			<div class="panel panel-default no-border no-background no-shadow">
+				<div class="panel-body text-center">
+					<button class="btn btn-success text-uppercase font-bold">Play</button>
+					<h1 class="font-bold">3</h1>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5">
+			{% include 'includes/panel.html' %}
+		</div>
+	</div>
+</div>
+{% endblock %}
