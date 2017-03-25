@@ -20,6 +20,9 @@ $ pip install -r requirements.txt
 ```
 
 Go ahead and install it onto your system.
+```console
+$ python setup.py install
+```
 
 ### Usage
 To launch the Graphical User Interface, launch as follows:
@@ -27,6 +30,10 @@ To launch the Graphical User Interface, launch as follows:
 >>> import spockpy
 >>> app = spockpy.App()
 >>> app.run()
+```
+OR via the command-line
+```console
+>>> python -m spockpy
 ```
 
 ### License
