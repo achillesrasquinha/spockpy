@@ -24,16 +24,16 @@ class HoverPad(object):
 
 	def __init__(self, size = (320, 240), deviceID = 0):
 		self.size    = size
-		self.capture = cv2.VideoCapture(device = deviceID)
+		self.capture = Capture()
 
 	'''
 	Displays the HoverPad object instance onto the screen. To close the HoverPad, simply press the ESC key
 	'''
 	def show(self):
-		while cv2.waitKey(0) not in [keycode.ESCAPE, keycode.Q, keycode.q]:
-			array = self.capture.read()
-			# image = _resize_image(image, self.size, maintain_aspect_ratio = True)
-			# array = np.asarray(image)
+		while cv2.waitKey(10) not in [keycode.ESCAPE, keycode.Q, keycode.q]:
+			image = self.capture.read()
+			image = _resize_image(image, self.size, maintain_aspect_ratio = True)
+			array = np.asarray(image)
 
 			cv2.imshow(HoverPad.TITLE, array)
 
