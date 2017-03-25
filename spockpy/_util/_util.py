@@ -1,5 +1,6 @@
 # imports - standard imports
 import io
+import base64
 
 # imports - third-party imports
 import numpy as np
@@ -38,9 +39,16 @@ def _mount_roi(array, roi, color = (0, 255, 0), thickness = 1):
 
     return array
 
-def _image_to_byte_array(image):
+def _image_to_bytes(image, format_ = '.jpg'):
     array   = np.asarray(image)
-    _, jpeg = cv2.imencode('.jpg', array)
+    _, jpeg = cv2.imencode(format_, array)
     bytes_  = jpeg.tobytes()
 
     return bytes_
+
+def _base64_str_to_image(string):
+    decode = base64.b64decode(string)
+    bytes_ = io.BytesIO(decode)
+    image  = Image.open(bytes_)
+
+    return image

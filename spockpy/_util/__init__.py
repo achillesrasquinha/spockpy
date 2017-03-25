@@ -10,5 +10,6 @@ from spockpy._util._util import (
 	_to_grayscale,
 	_get_opencv_version,
 	_mount_roi,
-	_image_to_byte_array
+	_image_to_bytes,
+	_base64_str_to_image
 )

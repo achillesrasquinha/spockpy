@@ -12,5 +12,6 @@ class BaseConfig(object):
 		ABSPATH_ASSETS = os.path.join(ABSPATH_ROOT, 'assets') 
 
 	class URL(object):
-		BASE       = '/'
+		BASE         = '/'
 		VIDEO_STREAM = urljoin(BASE, 'videostream')
+		DETECT       = urljoin(BASE, 'detect') 

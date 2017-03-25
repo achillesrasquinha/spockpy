@@ -7,7 +7,7 @@
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<div class="panel-title text-center font-bold">
-						Player
+						Computer 
 					</div>
 				</div>
 				<div class="panel-body">
@@ -19,7 +19,7 @@
 					<div class="text-center">
 						<img class="image-responsive img-thumbnail no-border"
 							src="{{ url_for('static', filename = 'img/icons/spock.png') }}"
-							width="200"/>
+							width="250"/>
 					</div>
 				</div>
 			</div>
@@ -27,8 +27,8 @@
 		<div class="col-md-2">
 			<div class="panel panel-default no-border no-background no-shadow">
 				<div class="panel-body text-center">
-					<button class="btn btn-success text-uppercase font-bold">Play</button>
-					<h1 class="font-bold">3</h1>
+					<button class="play btn btn-success text-uppercase font-bold">Play</button>
+					<h1 class="font-bold counter"></h1>
 				</div>
 			</div>
 		</div>
@@ -36,7 +36,7 @@
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<div class="panel-title text-center font-bold">
-						Player
+						Human
 					</div>
 				</div>
 				<div class="panel-body">
@@ -46,13 +46,71 @@
 						</div>
 					</div>
 					<div class="text-center">
-						<img class="image-responsive img-thumbnail no-border"
+						<img class="videostream image-responsive img-thumbnail no-border"
 							src="{{ url_for('videostream') }}"
-							width="200"/>
+							width="300"/>
+						<h4 class="gesture-text text-uppercase font-bold"></h4>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+<script
+  src="https://code.jquery.com/jquery-1.12.4.min.js"
+  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+  crossorigin="anonymous"></script>
+<script>
+function startCounter(counter, callback) {
+	$('.counter').html(counter);
+	console.log($('.counter').html());
+
+	if ( counter == 0 ) {
+		callback()
+	} else {
+		setTimeout(function ( ) {
+			counter = counter - 1;
+			startCounter(counter, callback)
+		}, 1000);
+	}
+}
+
+function getBase64ImageString(image) {
+  var canvas = document.createElement("canvas");
+  canvas.width = image.width;
+  canvas.height = image.height;
+  var ctx = canvas.getContext("2d");
+  ctx.drawImage(image, 0, 0);
+  var dataURL = canvas.toDataURL("image/png");
+  return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+}
+
+$(document).ready(function() {
+	$('.play').click(function () {
+		console.log('play clicked');
+		var counter = 3;
+
+		startCounter(counter, function () {
+			console.log('counter done');
+
+			var imageString = getBase64ImageString($('.videostream')[0]);
+			$.post('/detect', { image: imageString }, function (response) {
+				console.log(response);
+			});
+		});
+	});
+
+	setTimeout(function ( ) {
+		var imageString = getBase64ImageString($('.videostream')[0]);
+		$.post('/detect', { image: imageString }, function (response) {
+			gesture = response.gesture
+			console.log(gesture)
+			$('.gesture-text').html(gesture)
+		});
+	}, 100);
+});
+
+
+</script>
+
 {% endblock %}
