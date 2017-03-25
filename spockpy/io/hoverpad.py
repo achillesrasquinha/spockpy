@@ -10,7 +10,7 @@ import cv2
 from PIL import Image
 
 # imports - module imports
-from spockpy.io    import Capture
+from spockpy import Capture, Event
 from spockpy._util import _resize_image, _round_int
 from spockpy.event import keycode
 
@@ -31,7 +31,7 @@ def _get_roi(size, ratio = 0.42, position = 'tr'):
 def _crop_array(array, roi):
 	x, y, w, h = roi
 	crop       = array[ y : y + h , x : x + w ]
-	
+
 
 class HoverPad(object):
 	'''
@@ -58,7 +58,7 @@ class HoverPad(object):
 		self.size     = size
 		self.capture  = Capture()
 		self.position = position
-		self.events   = [ ]
+		# self.event    = Event(Event.NONE)
 
 		self.roi      = _get_roi(size = self.size, position = position)
 
@@ -85,8 +85,6 @@ class HoverPad(object):
 
 	def _showloop(self):
 		while cv2.waitKey(10) not in [keycode.ESCAPE, keycode.Q, keycode.q]:
-			# del self.events[:]
-
 			image = self.capture.read()
 			image = image.transpose(Image.FLIP_LEFT_RIGHT)
 
@@ -98,8 +96,8 @@ class HoverPad(object):
 			crop  = _crop_array(array, self.roi)
 
 			# process image for any gestures
-			# event = spockpy.detect(crop)
-			# self.events.append(event) 
+			# event      = spockpy.detect(crop)
+			# self.event = event
 
 			cv2.imshow(HoverPad.TITLE, array)
 
@@ -107,11 +105,13 @@ class HoverPad(object):
 
 	def get(self):
 		'''
-		Returns a list of `spockpy.Event` objects currently present in the queue.
+		Returns a `spockpy.Event` captured within the frame.
 
 		Example
 		>>> import spockpy
-		>>> pad = spockpy.HoverPad()
+		>>> pad   = spockpy.HoverPad()
 		>>> pad.show()
+		>>> event = pad.get()
+		>>> event.type
 		'''
-		pass
+		return self.event

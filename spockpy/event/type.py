@@ -1,3 +1,4 @@
+NONE    = 'none'
 ROCK    = 'rock'
 PAPER   = 'paper'
 SCISSOR = 'scissor'
