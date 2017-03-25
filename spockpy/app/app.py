@@ -4,12 +4,17 @@ try:
 except ImportError:
 	import tkinter as tk
 
+# imports - third-party imports
+from PIL import Image, ImageTk
+
 # imports - module imports
-from spockpy.config import AppConfig
+import spockpy
 
 class App(object):
 	class Frame(tk.Frame):
-		def __init__(self, master = None):
+		def __init__(self,
+					 master     = None,
+					 windowSize = spockpy.AppConfig.WINDOW_SIZE):
 			self.master = master
 
 			tk.Frame.__init__(self, master)
@@ -17,21 +22,46 @@ class App(object):
 			self.createUI()
 
 		def createUI(self):
-			pass
+			width, height = spockpy.AppConfig.WINDOW_SIZE
+
+			size          = spockpy.AppConfig.VIDEO_PANEL_SIZE
+			self.video    = tk.Label(self.master,
+									 width  = size[0],
+									 height = size[1])
+
+			self.video.grid(row    = currentRow,
+							column = 0,
+							sticky = tk.E + tk.W)
 
 	def __init__(self,
-				 windowSize = AppConfig.WINDOW_SIZE):
-		self.windowSize = windowSize
-		width, height   = self.windowSize
+				 windowSize = spockpy.AppConfig.WINDOW_SIZE):
+		self.windowSize  = windowSize
+		width, height    = self.windowSize
 
-		self.root       = tk.Tk()
-		self.root.title('%s v%s' % (AppConfig.NAME, AppConfig.VERSION))
+		self.root        = tk.Tk()
+		self.root.title('%s v%s' % (spockpy.AppConfig.NAME, spockpy.AppConfig.VERSION))
 		self.root.geometry('{width}x{height}'.format(
 			width  = width,
 			height = height
 		))
 
-		self.frame      = App.Frame(self.root)
+		self.frame       = App.Frame(
+			master       = self.root,
+			windowSize   = self.windowSize
+		)
+
+		self.capture     = spockpy.Capture()
+		self.thread      = threading.Thread(target = self.videoloop)
 
 	def run(self):
+		self.thread.start()
 		self.root.mainloop()
+
+	def videoloop(self):
+		while True:
+			frame   = self.capture.read()
+			image   = Image.fromarray(frame)
+
+			imagetk = ImageTk.PhotoImage(image)
+
+			self.frame.video.configure(image = imagetk)

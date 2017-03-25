@@ -1,8 +1,13 @@
 from spockpy.config import BaseConfig
 
+def _get_video_panel_size(length):
+	size = int(length * 0.25)
+
+	return (size, size)
+
 class AppConfig(BaseConfig):
-	NAME        = 'spockpy'
-	VERSION     = '0.1.0'
+	WINDOW_WIDTH     = 1024
+	WINDOW_HEIGHT    = 768
+	WINDOW_SIZE      = (WINDOW_WIDTH, WINDOW_HEIGHT)
 
-	WINDOW_SIZE = (1024, 768)
-
+	VIDEO_PANEL_SIZE = _get_video_panel_size(WINDOW_WIDTH)
