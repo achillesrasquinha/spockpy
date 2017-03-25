@@ -2,5 +2,6 @@
 from __future__ import absolute_import
 
 # imports - module imports
-from spockpy.io  import Capture, HoverPad
-from spockpy.app import App
+from spockpy.io    import Capture, HoverPad
+from spockpy.event import Event
+from spockpy.app   import App

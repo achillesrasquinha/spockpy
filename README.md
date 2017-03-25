@@ -37,6 +37,8 @@ To display the `HoverPad`, use the `show` class method as follows:
 >>> pad.show()
 ```
 
+`spockpy.HoverPad` releases a set of event objects from the `event` class method
+
 ### Examples
 spockpy comes with a handy number of examples.
 To launch the app, launch it as follows:

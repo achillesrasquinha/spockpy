@@ -1,3 +1,4 @@
+# imports - third-party imports
 from PIL import Image
 
 def _resize_image(image, size, maintain_aspect_ratio = False):
@@ -18,3 +19,8 @@ def _resize_image(image, size, maintain_aspect_ratio = False):
     copy.thumbnail((width, height), Image.ANTIALIAS)
 
     return copy
+
+def _round_int(value):
+    result = int(np.rint(value))
+
+    return result

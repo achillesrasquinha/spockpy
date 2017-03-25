@@ -11,13 +11,8 @@ from PIL import Image
 
 # imports - module imports
 from spockpy.io    import Capture
-from spockpy._util import _resize_image
+from spockpy._util import _resize_image, _round_int
 from spockpy.event import keycode
-
-def _round_int(value):
-	result = int(np.rint(value))
-
-	return result
 
 def _get_roi(size, ratio = 0.42, position = 'tr'):
 	width, height = _round_int(size[0] * ratio), _round_int(size[1] * ratio)
@@ -32,6 +27,11 @@ def _get_roi(size, ratio = 0.42, position = 'tr'):
 		x, y = size[0] - width, size[1] - height
 
 	return (x, y, width, height)
+
+def _crop_array(array, roi):
+	x, y, w, h = roi
+	crop       = array[ y : y + h , x : x + w ]
+	
 
 class HoverPad(object):
 	'''
@@ -58,6 +58,7 @@ class HoverPad(object):
 		self.size     = size
 		self.capture  = Capture()
 		self.position = position
+		self.events   = [ ]
 
 		self.roi      = _get_roi(size = self.size, position = position)
 
@@ -80,10 +81,12 @@ class HoverPad(object):
 	>>> pad.show()
 	'''
 	def show(self):
-		self.thead.start()
-		
+		self.thread.start()
+
 	def _showloop(self):
 		while cv2.waitKey(10) not in [keycode.ESCAPE, keycode.Q, keycode.q]:
+			# del self.events[:]
+
 			image = self.capture.read()
 			image = image.transpose(Image.FLIP_LEFT_RIGHT)
 
@@ -92,6 +95,23 @@ class HoverPad(object):
 			array = np.asarray(image)
 			array = self._mount_roi(array)
 
+			crop  = _crop_array(array, self.roi)
+
+			# process image for any gestures
+			# event = spockpy.detect(crop)
+			# self.events.append(event) 
+
 			cv2.imshow(HoverPad.TITLE, array)
 
 		cv2.destroyWindow(HoverPad.TITLE)
+
+	def get(self):
+		'''
+		Returns a list of `spockpy.Event` objects currently present in the queue.
+
+		Example
+		>>> import spockpy
+		>>> pad = spockpy.HoverPad()
+		>>> pad.show()
+		'''
+		pass
