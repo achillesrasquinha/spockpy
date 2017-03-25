@@ -20,7 +20,7 @@ class HoverPad(object):
 
 	class Frame(tk.Frame):
 		def __init__(self, master = None, size = BaseConfig.HOVERPAD_SIZE):
-			self.super   = super(App.Frame, self)
+			self.super   = super(HoverPad.Frame, self)
 			self.master  = master
 			self.size    = size
 
