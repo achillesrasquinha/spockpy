@@ -24,7 +24,7 @@ class HoverPad(object):
 
 	def __init__(self, size = (320, 240), deviceID = 0):
 		self.size    = size
-		self.capture = Capture()
+		self.capture = cv2.VideoCapture(device = deviceID)
 
 	'''
 	Displays the HoverPad object instance onto the screen. To close the HoverPad, simply press the ESC key
