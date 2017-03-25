@@ -31,9 +31,9 @@ class HoverPad(object):
 	'''
 	def show(self):
 		while cv2.waitKey(0) not in [keycode.ESCAPE, keycode.Q, keycode.q]:
-			image = self.capture.read()
-			image = _resize_image(image, self.size, maintain_aspect_ratio = True)
-			array = np.asarray(image)
+			array = self.capture.read()
+			# image = _resize_image(image, self.size, maintain_aspect_ratio = True)
+			# array = np.asarray(image)
 
 			cv2.imshow(HoverPad.TITLE, array)
 
