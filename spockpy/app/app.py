@@ -3,6 +3,7 @@ try:
 	import Tkinter as tk
 except ImportError:
 	import tkinter as tk
+import threading
 
 # imports - third-party imports
 from PIL import Image, ImageTk
