@@ -9,12 +9,13 @@ from PIL import Image, ImageTk
 
 # imports - module imports
 import spockpy
+from spockpy.config import AppConfig
 
 class App(object):
 	class Frame(tk.Frame):
 		def __init__(self,
 					 master     = None,
-					 windowSize = spockpy.AppConfig.WINDOW_SIZE):
+					 windowSize = AppConfig.WINDOW_SIZE):
 			self.master = master
 
 			tk.Frame.__init__(self, master)
@@ -22,9 +23,9 @@ class App(object):
 			self.createUI()
 
 		def createUI(self):
-			width, height = spockpy.AppConfig.WINDOW_SIZE
+			width, height = AppConfig.WINDOW_SIZE
 
-			size          = spockpy.AppConfig.VIDEO_PANEL_SIZE
+			size          = AppConfig.VIDEO_PANEL_SIZE
 			self.video    = tk.Label(self.master,
 									 width  = size[0],
 									 height = size[1])
@@ -34,12 +35,12 @@ class App(object):
 							sticky = tk.E + tk.W)
 
 	def __init__(self,
-				 windowSize = spockpy.AppConfig.WINDOW_SIZE):
+				 windowSize = AppConfig.WINDOW_SIZE):
 		self.windowSize  = windowSize
 		width, height    = self.windowSize
 
 		self.root        = tk.Tk()
-		self.root.title('%s v%s' % (spockpy.AppConfig.NAME, spockpy.AppConfig.VERSION))
+		self.root.title('%s v%s' % (AppConfig.NAME, spockpy.AppConfig.VERSION))
 		self.root.geometry('{width}x{height}'.format(
 			width  = width,
 			height = height
