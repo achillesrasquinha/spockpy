@@ -39,10 +39,12 @@ class HoverPad(object):
 
 	def __init__(self,
 				 size  = BaseConfig.HOVERPAD_SIZE):
-		self.size    = size
+		self.size     = size
 
-		self.root    = tk.Tk()
+		self.root     = tk.Tk()
 		self.root.title(HoverPad.TITLE)
+
+		width, height = self.size
 		self.root.geometry('{width}x{height}'.format(
 			width  = width,
 			height = height
