@@ -10,8 +10,13 @@ from spockpy.io    import Capture
 from spockpy._util import _resize_image
 from spockpy.event import keycode
 
-def _get_roi(size, ratio = 0.25, position = 'tr'):
-	width, height = np.asarray(size) * ratio
+def _round_int(value):
+	result = int(np.rint(value))
+
+	return result
+
+def _get_roi(size, ratio = 0.42, position = 'tr'):
+	width, height = _round_int(size[0] * ratio), _round_int(size[1] * ratio)
 
 	if   position == 'tl':
 		x, y = 0, 0
@@ -22,7 +27,7 @@ def _get_roi(size, ratio = 0.25, position = 'tr'):
 	elif position == 'br':
 		x, y = size[0] - width, size[1] - height
 
-	return (x, y, width, height)
+	return (int(x), int(y), int(width), int(height))
 
 class HoverPad(object):
 	'''
@@ -48,12 +53,14 @@ class HoverPad(object):
 		self.capture  = Capture()
 		self.position = position
 
-		self.roi      = _get_roi(self.size, position)
+		self.roi      = _get_roi(size = self.size, position = position)
 
 	def _mount_roi(self, image, color = (74, 20, 140), thickness = 1):
 		x, y, w, h    = self.roi
 
-		cv2.rectangle(image, (x, y), (w, h), thickness)
+		cv2.rectangle(image, (x, y), (x + w, y + h), thickness)
+
+		return array
 
 	'''
 	Displays the HoverPad object instance onto the screen. To close the HoverPad, simply press the ESC key
@@ -67,12 +74,12 @@ class HoverPad(object):
 	def show(self):
 		while cv2.waitKey(10) not in [keycode.ESCAPE, keycode.Q, keycode.q]:
 			image = self.capture.read()
-			image = cv2.flip(image, 1)
-
-			image = self._mount_roi(image)
+			image = image.transpose(Image.FLIP_LEFT_RIGHT)
 
 			image = _resize_image(image, self.size, maintain_aspect_ratio = True)
+			
 			array = np.asarray(image)
+			array = self._mount_roi(array)
 
 			cv2.imshow(HoverPad.TITLE, array)
 
