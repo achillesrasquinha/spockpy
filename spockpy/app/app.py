@@ -62,9 +62,7 @@ class App(object):
 
 	def videoloop(self):
 		while True:
-			frame   = self.capture.read()
-			image   = Image.fromarray(frame)
-
+			image   = self.capture.read()
 			imagetk = ImageTk.PhotoImage(image)
 
 			self.frame.video.configure(image = imagetk)

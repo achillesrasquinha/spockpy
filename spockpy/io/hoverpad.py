@@ -12,6 +12,7 @@ import threading
 from PIL import Image, ImageTk
 
 # imports - module imports
+from spockpy._util import _resize_image
 from spockpy.config import BaseConfig
 from spockpy.io import Capture
 
@@ -20,11 +21,10 @@ class HoverPad(object):
 
 	class Frame(tk.Frame):
 		def __init__(self, master = None, size = BaseConfig.HOVERPAD_SIZE):
-			self.super   = super(HoverPad.Frame, self)
 			self.master  = master
 			self.size    = size
 
-			self.super.__init__(master)
+			tk.Frame.__init__(self, self.master)
 
 			self.createUI()
 
@@ -38,7 +38,7 @@ class HoverPad(object):
 			self.video.grid(row = currentRow, column = 0, sticky = tk.E + tk.W + tk.N + tk.S)
 
 	def __init__(self,
-				 size  = BaseConfig.HOVERPAD_SIZE):
+				 size = BaseConfig.HOVERPAD_SIZE):
 		self.size     = size
 
 		self.root     = tk.Tk()
@@ -50,15 +50,16 @@ class HoverPad(object):
 			height = height
 		))
 
-		self.frame   = HoverPad.Frame(master = self.root)
+		self.frame    = HoverPad.Frame(master = self.root)
 
 		self.thread   = threading.Thread(target = self._captureloop)
-		self.capture = Capture()
+		self.capture  = Capture()
 
 	def _captureloop(self):
 		while True:
-			frame   = self.capture.read()
-			image   = Image.fromarray(frame)
+			image   = self.capture.read()
+			image   = _resize_image(image, self.size, ratio = True)
+			image   = image.convert('L')
 			imagetk = ImageTk.PhotoImage(image)
 
 			self.frame.video.configure(image = imagetk)

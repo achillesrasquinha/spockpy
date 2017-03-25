@@ -17,6 +17,7 @@ license           = 'Apache 2.0'
 modules           = [
     'spockpy',
     'spockpy.config',
+    'spockpy._util',
     'spockpy.io',
     'spockpy.event',
     'spockpy.app'

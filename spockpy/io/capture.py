@@ -3,6 +3,7 @@ from __future__ import absolute_import
 
 # imports - third-party imports
 import cv2
+from PIL import Image
 
 # imports - module imports
 from spockpy.config import BaseConfig
@@ -16,5 +17,6 @@ class Capture(object):
 
 	def read(self):
 		_, frame = self.capture.read()
+		image    = Image.fromarray(frame)
 
-		return frame
+		return image
