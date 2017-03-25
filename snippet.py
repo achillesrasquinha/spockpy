@@ -1,14 +1,17 @@
 import spockpy
 import cv2
 
-pad = spockpy.HoverPad(size = (640, 480), position = 'tl', verbose = True)
-
-pad = spockpy.HoverPad(position = 'tr', size = (800, 600), verbose = True)
-
+pad = spockpy.HoverPad(
+	size     = (640, 480),
+	position = 'tl',
+	deviceID = 1,
+	verbose  = True
+)
 pad.show()
 
 while True:
 	event = pad.get()
+	
 	if event.type == spockpy.Event.SPOCK:
 		print('Spock!')
 	elif event.type == spockpy.Event.PAPER:
