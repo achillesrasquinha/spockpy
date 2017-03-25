@@ -40,7 +40,7 @@ class App(object):
 		width, height    = self.windowSize
 
 		self.root        = tk.Tk()
-		self.root.title('%s v%s' % (AppConfig.NAME, spockpy.AppConfig.VERSION))
+		self.root.title('%s v%s' % (AppConfig.NAME, AppConfig.VERSION))
 		self.root.geometry('{width}x{height}'.format(
 			width  = width,
 			height = height
