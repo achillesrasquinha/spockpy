@@ -10,7 +10,7 @@ from spockpy.app.config import ServerConfig
 from spockpy.io import HoverPad
 from spockpy._util import _image_to_byte_array
 
-DEVICE_ID = 0
+DEVICE_ID = 1
 VERBOSE   = True
 
 app = Flask(__name__,

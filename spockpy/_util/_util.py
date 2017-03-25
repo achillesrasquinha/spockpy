@@ -39,7 +39,8 @@ def _mount_roi(array, roi, color = (0, 255, 0), thickness = 1):
     return array
 
 def _image_to_byte_array(image):
-    array  = np.asarray(image)
-    bytes_ = array.tobytes()
+    array   = np.asarray(image)
+    _, jpeg = cv2.imencode('.jpg', array)
+    bytes_  = jpeg.tobytes()
 
     return bytes_

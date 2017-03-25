@@ -9,4 +9,4 @@ if __name__ == '__main__':
 	host = ServerConfig.HOST
 	port = ServerConfig.PORT
 
-	app.run(host = host, port = port)
+	app.run(host = host, port = port, threaded = True)
