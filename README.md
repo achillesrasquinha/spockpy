@@ -29,13 +29,22 @@ $ python setup.py install
 spockpy creates a virtual trackpad (we call this, a *HoverPad*) for your user to interact with the API. Create a `spockpy.HoverPad` object as follows:
 ```python
 >>> import spockpy
->>> pad = spockpy.HoverPad()
+>>> pad = spockpy.HoverPad(verbose = True)
 ```
 
 To display the `HoverPad`, use the `show` class method as follows:
 ```python
 >>> pad.show()
 ```
+
+### How about Rock?
+![](.github/spockpy-rock.png)
+
+### What about Paper?
+![](.github/spockpy-paper.png)
+
+### Also, maybe Spock?
+![](.github/spockpy-spock.png)
 
 `spockpy.HoverPad` releases a set of event objects from the `event` class method
 
@@ -51,6 +60,12 @@ OR via the command-line
 ```console
 $ python -m spockpy
 ```
+
+![](.github/spockpy-win.png)
+![](.github/spockpy-lose.png)
+![](.github/spockpy-tie.png)
+
+###
 
 ### License
 This repository has been released under the [Apache License 2.0](LICENSE)
