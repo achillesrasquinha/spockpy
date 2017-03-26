@@ -113,4 +113,4 @@ Keen in enhancing the API? Have better suggestions on the `spockpy.detect` metho
 ### License
 This repository has been released under the [Apache License 2.0](LICENSE)
 
-*This project had been built in a time-frame of 30 hours for the Mumbai Hackathon 2017, held by the awesome developers at [ERPNext](https://github.com/frappe/erpnext).*
+*This project had been built by Achilles Rasquinha (@achillesrasquinha, achillesrasquinha@gmail.com) and Ameya Shenoy (@codingCoffee, shenoy.ameya@gmail.com) in a time-frame of 30 hours for the Mumbai Hackathon 2017, held by the awesome developers at [ERPNext](https://github.com/frappe/erpnext).*
