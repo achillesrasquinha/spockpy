@@ -48,10 +48,10 @@ Come this far? You have my [Vulcan Salute!](https://en.wikipedia.org/wiki/Vulcan
 ![](.github/live-long-and-prosper.jpg)
 
 ### Usage
-spockpy creates a virtual trackpad (we call this, a *HoverPad*) for your user to interact with the API. Create a `spockpy.HoverPad` object as follows:
+spockpy creates a virtual trackpad (we call this, the *HoverPad*) for users to interact with the interface. Create a `spockpy.HoverPad` class as follows:
 ```python
 >>> import spockpy
->>> pad = spockpy.HoverPad(verbose = True)
+>>> pad = spockpy.HoverPad()
 ```
 
 To display the `HoverPad`, use the `show` class method as follows:
@@ -59,35 +59,33 @@ To display the `HoverPad`, use the `show` class method as follows:
 >>> pad.show()
 ```
 
-### How about Rock?
-![](.github/spockpy-rock.png)
+That's it! `spockpy.HoverPad` releases a set of event objects from the `get_event` class method. You can now get `spockpy.Event` objects from frames of the current frame by simply:
+```python
+>>> event = pad.get_event()
+>>> event.type == spockpy.Event.SPOCK
+True
+```
 
-### What about Paper?
-![](.github/spockpy-paper.png)
+### Hand as a Mouse Pointer
+`spockpy.Event` objects generate x, y coordinates of the tip of a user's index finger. &#9757; To get the current coordinates of a frame, simply:
+```python
+>>> event.get_tip()
+(12, 40)
+```
+This retrives you a set of coordinates of the index finger relative to the screen.
 
-### Also, maybe Spock?
-![](.github/spockpy-spock.png)
-
-`spockpy.HoverPad` releases a set of event objects from the `event` class method
 
 ### Examples
-spockpy comes with a handy number of examples.
-To launch the app, launch it as follows:
-```python
->>> import spockpy
->>> app = spockpy.App()
->>> app.run()
-```
-OR via the command-line
-```console
-$ python -m spockpy
-```
+#### *How about Rock?*
+![](.github/spockpy-rock.png)
 
-![](.github/spockpy-win.png)
-![](.github/spockpy-lose.png)
-![](.github/spockpy-tie.png)
+#### *What about Paper?*
+![](.github/spockpy-paper.png)
 
-###
+#### *Also, maybe Spock?*
+![](.github/spockpy-spock.png)
+
+
 
 ### License
 This repository has been released under the [Apache License 2.0](LICENSE)
