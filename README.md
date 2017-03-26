@@ -11,6 +11,7 @@
 * [Usage](#usage)
 * [Examples](#examples)
 * [Integration](#integration)
+* [Contribution](#contribution)
 * [License](#license)
 
 ### Installation
@@ -106,5 +107,10 @@ $ python -m spockpy
 ![](.github/spockpy-lose.png)
 ![](.github/spockpy-tie.png)
 
+### Contribution
+Keen in enhancing the API? Have better suggestions on the `spockpy.detect` method? Found some typos? Then go ahead and send in a Pull Request!
+
 ### License
 This repository has been released under the [Apache License 2.0](LICENSE)
+
+*This project had been built in a time-frame of 30 hours for the Mumbai Hackathon 2017, held by the awesome developers at [ERPNext](https://github.com/frappe/erpnext).*
