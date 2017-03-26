@@ -1,29 +1,51 @@
-# spockpy
-> A Python library for hand gestures as an input interface.
+# [spockpy](http://spockpy.readthedocs.io)
+> *"A Python hand gesture recognition library for Kinetic User Interface (KUI)."*
+
+[![Documentation Status](https://readthedocs.org/projects/spockpy/badge/?version=latest)](http://spockpy.readthedocs.io/en/latest/?badge=latest) ![Python](https://img.shields.io/badge/python-2.7, 3.5-blue.svg) [![License](https://img.shields.io/badge/license-Apache 2.0-blue.svg)](LICENSE) ![Say Thanks](https://img.shields.io/badge/Say Thanks-!-blue.svg)
 
 ![](.github/logo.png)
 
-### Table of Contents
+## Table of Contents
 * [Installation](#installation)
 * [Usage](#usage)
 * [Examples](#examples)
 * [License](#license)
 
 ### Installation
-Download or clone the repository onto your desktop
+##### 1. Download the repository
+
+Clone the base repository onto your desktop with `git` as follows:
 ```console
-$ git clone https://github.com/achillesrasquinha/spockpy && cd spockpy
+$ git clone git@github.com:achillesrasquinha/spockpy
 ```
 
-Install necessary dependencies
+##### 2. Install necessary dependencies
+spockpy is primarily built on [OpenCV](http://opencv.org) for a large number of standard Computer Vision helpers and techniques. In order to install spockpy, you may have to build OpenCV (2.x or 3.x, depending on your Python version) first.
+
+For Linux users, use our build scripts as follows:
+```console
+$ chnmod +x build/*
+$ build/get-opencv.sh
+```
+
+Next, install necessary Python dependencies as follows:
 ```console
 $ pip install -r requirements.txt
 ```
 
-Go ahead and install it onto your system.
+Finally, go ahead and install spockpy onto your system.
 ```console
 $ python setup.py install
 ```
+
+To check whether you've installed spockpy, simply `import` spockpy:
+```python
+>>> import spockpy
+```
+
+Come this far? You have my [Vulcan Salute!](https://en.wikipedia.org/wiki/Vulcan_salute)
+
+![](.github/live-long-and-prosper.jpg)
 
 ### Usage
 spockpy creates a virtual trackpad (we call this, a *HoverPad*) for your user to interact with the API. Create a `spockpy.HoverPad` object as follows:

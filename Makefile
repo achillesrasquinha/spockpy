@@ -1,6 +1,6 @@
 .PHONY: docs
 
-PYTHON = python
+PYTHON   = python
 
 install:
 	cat requirements/*.txt > requirements.txt
@@ -14,11 +14,8 @@ run:
 docs:
 	cd docs && make html
 
-tests:
-	# $(PYTHON) setup.py tests
-
 clean:
 	$(PYTHON) setup.py clean
 
 all:
-	make install docs tests clean
+	make install docs clean
