@@ -25,7 +25,7 @@ app   = Flask(__name__,
 	template_folder = ServerConfig.Path.ABSPATH_TEMPLATES
 )
 pad   = HoverPad(deviceID = HOVERPAD_DEVICE_ID, size = HOVERPAD_SIZE, verbose = HOVERPAD_VERBOSE)
-pad.show()
+# pad.show()
 
 def _get_gesture_name(event):
 	type_ = event.type
@@ -60,6 +60,8 @@ def videostream():
 @app.route(ServerConfig.URL.DETECT, methods = ['POST'])
 def detect():
 	event    = pad.get_event()
+	position = event.get_tip()
+
 	gesture  = _get_gesture_name(event)
 
 	response = { 'type': gesture }

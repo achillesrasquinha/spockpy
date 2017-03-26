@@ -50,6 +50,12 @@ class HoverPad(object):
 	:param deviceID: the device ID of your capture device, defaults to 0.
 	:type deviceID: :obj:`int`
 
+	:param position: the relative position of the :obj:`HoverPad` with respect to the current frame. This could be top-left (`tl`), top-right (`tr`), bottom-left (`bl`) and bottom-right (`br`)
+	:type position: :obj:`str`, defaults to `tl`.
+
+	:param verbose: if True, displays frames containing the threshold and contour information.
+	:type verbose: :obj:`bool`
+
 	Example
 
 	>>> import spockpy
@@ -71,16 +77,16 @@ class HoverPad(object):
 
 		self.thread   = threading.Thread(target = self._showloop)
 
-	'''
-	Displays the HoverPad object instance onto the screen. To close the HoverPad, simply press the ESC key
-	
-	Example
-
-	>>> import spockpy
-	>>> pad = spockpy.HoverPad()
-	>>> pad.show()
-	'''
 	def show(self):
+		'''
+		Displays the HoverPad object instance onto the screen. To close the HoverPad, simply press the ESC key
+		
+		Example
+
+		>>> import spockpy
+		>>> pad = spockpy.HoverPad()
+		>>> pad.show()
+		'''
 		self.thread.start()
 
 	def _showloop(self):
@@ -101,6 +107,7 @@ class HoverPad(object):
 			else:
 				event           = spockpy.detect(crop, verbose = self.verbose)
 
+			
 			self.image = Image.fromarray(segments)
 			self.event = event
 
@@ -110,16 +117,27 @@ class HoverPad(object):
 
 	def get_event(self):
 		'''
-		Returns a `spockpy.Event` captured within the frame.
+		Returns a :py:class:`spockpy.Event` captured within the current frame.
 
 		Example
+
 		>>> import spockpy
 		>>> pad   = spockpy.HoverPad()
-		>>> pad.show()
-		>>> event = pad.get()
-		>>> event.type
+		>>> event = pad.get_event()
+		>>> event.type == Event.ROCK
+		True
 		'''
 		return self.event
 
 	def get_image(self):
+		'''
+		Returns a :obj:`PIL.Image` captured within the current frame.
+
+		Example
+		
+		>>> import spockpy
+		>>> pad   = spockpy.HoverPad()
+		>>> image = pad.get_image()
+		>>> image.show()
+		'''
 		return self.image

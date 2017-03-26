@@ -4,6 +4,7 @@ from __future__ import absolute_import
 # imports - third-party packages
 import math
 import cv2
+import pyautogui
 
 # imports - module imports
 from spockpy.event import Event
@@ -13,7 +14,8 @@ from spockpy._util import (
     _mount_roi,
     _to_grayscale,
     _get_opencv_version,
-    _mount_roi
+    _mount_roi,
+    _round_int
 )
 
 _DEFAULT_GAUSSIAN_BLUR_KERNEL = (35, 35)
@@ -74,8 +76,8 @@ def detect(array, verbose = False):
     blur       = cv2.GaussianBlur(gray, ksize = _DEFAULT_GAUSSIAN_BLUR_KERNEL, sigmaX = 0)
     _, thresh  = cv2.threshold(blur, 127, 255, _DEFAULT_THRESHOLD_TYPE)
 
-    # if verbose:
-    #     cv2.imshow('spockpy.HoverPad.roi.threshold', thresh)
+    if verbose:
+        cv2.imshow('spockpy.HoverPad.roi.threshold', thresh)
 
     contours   = _get_contours(thresh.copy())
     largecont  = max(contours, key = lambda contour: cv2.contourArea(contour))
@@ -96,8 +98,10 @@ def detect(array, verbose = False):
         
     if defects is not None:
         copy, ndefects = _get_defects_count(copy, largecont, defects, verbose = verbose)
-
         if   ndefects == 0:
+            copy, tip  = _get_tip_position(copy, largecont, verbose = verbose)
+
+            event.setTip(tip)
             # TODO: check for a single finger.
             event.setType(Event.ROCK)
         elif ndefects == 1:
@@ -108,10 +112,32 @@ def detect(array, verbose = False):
         elif ndefects == 4:
             event.setType(Event.PAPER)
 
-    # if verbose:
-    #     cv2.imshow('spockpy.HoverPad.roi', copy)
+    if verbose:
+        cv2.imshow('spockpy.HoverPad.roi', copy)
 
     if verbose:
         return copy, event
     else:
         return event
+
+def _get_tip_position(array, contour, verbose = False):
+    approx_contour = cv2.approxPolyDP(contour, 0.08 * cv2.arcLength(contour, True), True)
+    convex_points  = cv2.convexHull(approx_contour, returnPoints = True)
+    
+    cx, cy     = 999, 999
+
+    for point in convex_points:
+        cur_cx, cur_cy = point[0][0], point[0][1]
+
+        if verbose:
+            cv2.circle(array, (cur_cx, cur_cy), 4, _COLOR_GREEN,4)
+            
+        if (cur_cy < cy):
+            cx, cy = cur_cx, cur_cy
+
+    (screen_x, screen_y) = pyautogui.size()
+
+    height, width, _ = array.shape
+    x = _round_int((float(cx))/(width-0)*(screen_x+1))
+    y = _round_int((float(cy))/(height-0)*(screen_y+1))
+    return (array, (x, y))

@@ -20,7 +20,12 @@ modules           = [
     'spockpy._util',
     'spockpy.io',
     'spockpy.event',
-    'spockpy.app'
+
+    'spockpy.app',
+    'spockpy.app.client',
+    'spockpy.app.config',
+    'spockpy.app.server',
+    'spockpy.app.views'
 ]
 test_modules      = [
 	'spockpy.test'

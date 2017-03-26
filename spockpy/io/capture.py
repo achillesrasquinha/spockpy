@@ -20,16 +20,16 @@ class Capture(object):
 	def __init__(self, deviceID = 0):
 		self.deviceID = deviceID
 		self.capture  = cv2.VideoCapture(self.deviceID)
-
-	'''
-	Reads the current input stream from a capture device and returns a `PIL.Image` object
-
-	>>> import spockpy
-	>>> cap   = spockpy.Capture()
-	>>> image = cap.read()
-	>>> image.show()
-	'''
+	
 	def read(self):
+		'''
+		Reads the current input stream from a capture device and returns a `PIL.Image` object
+
+		>>> import spockpy
+		>>> cap   = spockpy.Capture()
+		>>> image = cap.read()
+		>>> image.show()
+		'''
 		_, frame = self.capture.read()
 		image    = Image.fromarray(frame)
 
