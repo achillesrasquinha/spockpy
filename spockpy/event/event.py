@@ -16,10 +16,7 @@ class Event(object):
 		self.type = type_
 
 	def setTip(self, position):
-		if self.type == Event.ROCK:
-			self.tip  = position
-		else:
-			self.tip  = (None, None)
+		self.tip = position
 
 	def get_tip(self):
 		return self.tip

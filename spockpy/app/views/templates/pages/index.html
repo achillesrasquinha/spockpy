@@ -28,6 +28,7 @@
 			<div class="panel panel-default no-border no-background no-shadow">
 				<div class="panel-body text-center">
 					<button class="play btn btn-success text-uppercase font-bold">Play</button>
+					<button class="mouse-mode btn btn-success text-uppercase font-bold">Mouse Mode</button>
 					<h1 class="font-bold counter"></h1>
 				</div>
 			</div>
@@ -114,6 +115,12 @@ var lookup = {
 }
 
 $(document).ready(function() {
+	$('.mouse-mode').click(function ( ) {
+		$.post('/position', function (response) {
+			
+		});
+	});
+
 	$('.play').click(function () {
 		var counter = 3;
 
@@ -143,7 +150,6 @@ $(document).ready(function() {
 				}
 
 				setTimeout(function ( ) {
-
 					$('.play').click();
 				}, 2000);
 

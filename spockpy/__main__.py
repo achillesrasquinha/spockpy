@@ -6,12 +6,11 @@ from spockpy.app import app
 from spockpy.app.config import ServerConfig
 
 if __name__ == '__main__':
-	# host = ServerConfig.HOST
-	# port = ServerConfig.PORT
+	host = ServerConfig.HOST
+	port = ServerConfig.PORT
 
-	# app.run(
-	# 	host     = host,
-	# 	port     = port,
-	# 	threaded = True
-	# )
-	pass
+	app.run(
+		host     = host,
+		port     = port,
+		threaded = True
+	)

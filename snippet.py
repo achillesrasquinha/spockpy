@@ -1,6 +1,10 @@
 import spockpy
 import pyautogui
 
+class App(object):
+	class Frame(tk.Frame):
+		
+
 if __name__ == '__main__':
 	pad = spockpy.HoverPad(size = (640, 480), verbose = True, position = 'tl', deviceID = 0)
 	pad.show()

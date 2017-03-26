@@ -1,15 +1,12 @@
-import spockpy
-import pyautogui
+# imports - compatibility packages
+from __future__ import absolute_import
+
+# imports - airdraw
+from airdraw import App
+
+def main():
+    app = App()
+    app.run()
 
 if __name__ == '__main__':
-	pad = spockpy.HoverPad(size = (640, 480), verbose = True, position = 'tr', deviceID = 0)
-	pad.show()
-
-	while True:
-		event    = pad.get_event()
- 
-		position = event.get_tip()
-		x, y     = position
-
-		if x != None and y != None:
-			pyautogui.moveTo(x, y)
+    main()
