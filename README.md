@@ -1,7 +1,7 @@
 # [spockpy](http://spockpy.readthedocs.io)
 > *"A Python hand gesture recognition library for Kinetic User Interface (KUI)."*
 
-[![Documentation Status](https://readthedocs.org/projects/spockpy/badge/?version=latest)](http://spockpy.readthedocs.io/en/latest/?badge=latest) [![Python](https://img.shields.io/badge/python-2.7, 3.5-blue.svg)]() [![License](https://img.shields.io/badge/license-Apache 2.0-blue.svg)](LICENSE) [![Say Thanks](https://img.shields.io/badge/Say Thanks-!-blue.svg)]()
+[![Documentation Status](https://readthedocs.org/projects/spockpy/badge/?version=latest)](http://spockpy.readthedocs.io/en/latest/?badge=latest)
 
 ![](.github/logo.png)
 
