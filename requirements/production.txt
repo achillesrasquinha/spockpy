@@ -1,2 +1,5 @@
+numpy
 Pillow
 Flask
+python3_Xlib
+pyautogui

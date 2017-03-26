@@ -1,4 +1,4 @@
-# [spockpy](http://spockpy.readthedocs.io) :fist: :hand: :v: :point_up: 
+# [spockpy](http://spockpy.readthedocs.io) :fist: :hand: :v: :point_up:
 > *"A Python hand gesture recognition library for Kinetic User Interface (KUI)."*
 
 [![Documentation Status](https://readthedocs.org/projects/spockpy/badge/?version=latest)](http://spockpy.readthedocs.io/en/latest/?badge=latest)
@@ -7,8 +7,10 @@
 
 ## Table of Contents
 * [Installation](#installation)
+* [Requirements](#Requirements)
 * [Usage](#usage)
 * [Examples](#examples)
+* [Integration](#integration)
 * [License](#license)
 
 ### Installation
@@ -47,6 +49,9 @@ Come this far? You have my [Vulcan Salute!](https://en.wikipedia.org/wiki/Vulcan
 
 ![](.github/live-long-and-prosper.jpg)
 
+### Requrirements
+spockpy requires a robust WebCamera to get going! There are no other requirements. You are now, requirement-less.
+
 ### Usage
 spockpy creates a virtual trackpad (we call this, the *HoverPad*) for users to interact with the interface. Create a `spockpy.HoverPad` class as follows:
 ```python
@@ -74,7 +79,6 @@ True
 ```
 This retrives you a set of coordinates of the index finger relative to the screen.
 
-
 ### Examples
 #### *How about Rock?*
 ![](.github/spockpy-rock.png)
@@ -85,7 +89,22 @@ This retrives you a set of coordinates of the index finger relative to the scree
 #### *Also, maybe Spock?*
 ![](.github/spockpy-spock.png)
 
+### Integration
+spockpy comes with a handy number of examples.
+To launch the app, launch it as follows:
+```python
+>>> import spockpy
+>>> app = spockpy.App()
+>>> app.run()
+```
+OR via the command-line
+```console
+$ python -m spockpy
+```
 
+![](.github/spockpy-win.png)
+![](.github/spockpy-lose.png)
+![](.github/spockpy-tie.png)
 
 ### License
 This repository has been released under the [Apache License 2.0](LICENSE)
