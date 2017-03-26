@@ -1,4 +1,4 @@
-# [spockpy](http://spockpy.readthedocs.io)
+# [spockpy](http://spockpy.readthedocs.io) :fist: :hand: :v: :point_up: 
 > *"A Python hand gesture recognition library for Kinetic User Interface (KUI)."*
 
 [![Documentation Status](https://readthedocs.org/projects/spockpy/badge/?version=latest)](http://spockpy.readthedocs.io/en/latest/?badge=latest)
@@ -67,7 +67,7 @@ True
 ```
 
 ### Hand as a Mouse Pointer
-`spockpy.Event` objects generate x, y coordinates of the tip of a user's index finger. &#9757; To get the current coordinates of a frame, simply:
+`spockpy.Event` objects generate x, y coordinates of the tip of a user's index finger. :point_up_2: To get the current coordinates of a frame, simply:
 ```python
 >>> event.get_tip()
 (12, 40)
