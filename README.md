@@ -27,7 +27,7 @@ spockpy is primarily built on [OpenCV](http://opencv.org) for a large number of 
 
 For Linux users, use our build scripts as follows:
 ```console
-$ chnmod +x build/*
+$ chmod +x build/*
 $ build/get-opencv.sh
 ```
 
