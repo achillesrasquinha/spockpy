@@ -50,7 +50,7 @@ Come this far? You have my [Vulcan Salute!](https://en.wikipedia.org/wiki/Vulcan
 
 ![](.github/live-long-and-prosper.jpg)
 
-### Requrirements
+### Requirements
 spockpy requires a robust WebCamera to get going! There are no other requirements. You are now, requirement-less.
 
 ### Usage
